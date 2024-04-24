@@ -1,7 +1,6 @@
 package com.repliforce.hrworker.entities;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
