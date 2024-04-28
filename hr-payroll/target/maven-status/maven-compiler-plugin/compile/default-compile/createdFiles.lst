@@ -1,0 +1,7 @@
+com\repliforce\hrpayroll\resources\PaymentResource.class
+com\repliforce\hrpayroll\entities\Worker.class
+com\repliforce\hrpayroll\entities\Payment.class
+com\repliforce\hrpayroll\feignclients\WorkerFeignClient.class
+com\repliforce\hrpayroll\config\AppConfig.class
+com\repliforce\hrpayroll\services\PaymentService.class
+com\repliforce\hrpayroll\HrPayrollApplication.class
