@@ -16,7 +16,7 @@ public class AppConfig {
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-        tokenConverter.setSigningKey("hardcode-test");
+        tokenConverter.setSigningKey("hardcodePassword123");
         return tokenConverter;
     }
 

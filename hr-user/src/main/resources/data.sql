@@ -1,5 +1,5 @@
-INSERT INTO tb_user (name, email, password) VALUES ('X', 'x@gmail.com', '$2a$10$2jBiFe.50eMvxrTqnTIu8eeIgygavNfXxghKelvlYsf9rsgXZj.SG');
-INSERT INTO tb_user (name, email, password) VALUES ('Zero', 'zero@gmail.com', '$2a$10$n//FVAoUrslGi5iOE6gCYuiZRFc6nGz1N9gwM0SorLEFl1pgvCdPu');
+INSERT INTO tb_user (name, email, password) VALUES ('X', 'x@gmail.com', '$2a$10$2jBiFe.50eMvxrTqnTIu8eeIgygavNfXxghKelvlYsf9rsgXZj.SG'); -- x123
+INSERT INTO tb_user (name, email, password) VALUES ('Zero', 'zero@gmail.com', '$2a$10$n//FVAoUrslGi5iOE6gCYuiZRFc6nGz1N9gwM0SorLEFl1pgvCdPu'); -- zero123
 
 INSERT INTO tb_role (role_name) VALUES ('ROLE_LEADER');
 INSERT INTO tb_role (role_name) VALUES ('ROLE_HUNTER');
