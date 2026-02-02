@@ -3,11 +3,17 @@ package com.repliforce.hrworker;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.NONE,
+		properties = {
+				"eureka.client.enabled=false",
+				"spring.cloud.discovery.enabled=false",
+				"test.config=default"
+		}
+)
 class HrWorkerApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
-
 }
