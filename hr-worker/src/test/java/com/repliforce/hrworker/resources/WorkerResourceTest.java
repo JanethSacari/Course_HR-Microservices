@@ -79,4 +79,22 @@ class WorkerResourceTest {
         verify(workerRepository, times(1)).findById(id);
         verify(environment, times(1)).getProperty("local.server.port");
     }
+
+    @Test
+    void findById_Interrupted() {
+        Long id = 1L;
+        Worker mockWorker = mock(Worker.class);
+        when(workerRepository.findById(id)).thenReturn(Optional.of(mockWorker));
+
+        Thread.currentThread().interrupt();
+        try {
+            RuntimeException ex = assertThrows(RuntimeException.class, () -> workerResource.findById(id));
+            assertNotNull(ex.getCause());
+            assertTrue(ex.getCause() instanceof InterruptedException);
+
+            verify(workerRepository, never()).findById(id);
+        } finally {
+            Thread.interrupted();
+        }
+    }
 }
