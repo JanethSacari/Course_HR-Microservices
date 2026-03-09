@@ -3,6 +3,9 @@ package com.repliforce.hr_oauth.entities;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,9 +84,79 @@ class UserTest {
         user.getRoles().add(hunterRole);
         user.getRoles().add(navigatorRole);
 
-
         assertEquals(2, user.getRoles().size());
         assertTrue(user.getRoles().contains(hunterRole));
         assertTrue(user.getRoles().contains(navigatorRole));
+    }
+
+    @Test
+    void testConstructorEmpty() {
+        User hunterB = new User();
+        assertNotNull(hunterB);
+        assertNull(hunterB.getId());
+        assertNull(hunterB.getName());
+        assertNull(hunterB.getEmail());
+        assertNull(hunterB.getPassword());
+        assertTrue(hunterB.getRoles().isEmpty());
+    }
+
+    @Test
+    void testConstructorCustom() {
+        User customUser = new User(
+                2L,
+                "Colonel",
+                "colonel@repliforce.com",
+                "colonel123");
+        assertNotNull(customUser);
+        assertEquals(2L, customUser.getId());
+        assertEquals("Colonel", customUser.getName());
+        assertEquals("colonel@repliforce.com", customUser.getEmail());
+        assertEquals("colonel123", customUser.getPassword());
+        assertTrue(customUser.getRoles().isEmpty());
+    }
+
+    @Test
+    void getUsername() {
+        assertEquals("iris@repliforce.com", user.getUsername());
+        assertEquals(user.getEmail(), user.getUsername());
+    }
+
+    @Test
+    void isAccountNonExpired() {
+        assertTrue(user.isAccountNonExpired());
+    }
+
+    @Test
+    void isAccountNonLocked() {
+        assertTrue(user.isAccountNonLocked());
+    }
+
+    @Test
+    void isCredentialsNonExpired() {
+        assertTrue(user.isCredentialsNonExpired());
+    }
+
+    @Test
+    void isEnabled() {
+        assertTrue(user.isEnabled());
+    }
+
+    @Test
+    void getAuthorities() {
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        assertNotNull(authorities);
+        assertTrue(authorities.isEmpty());
+
+        user.getRoles().add(hunterRole);
+        user.getRoles().add(navigatorRole);
+
+        authorities = user.getAuthorities();
+        assertNotNull(authorities);
+        assertEquals(2, authorities.size());
+
+        assertTrue(authorities.stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_HUNTER")));
+        assertTrue(authorities.stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_NAVIGATOR")));
     }
 }

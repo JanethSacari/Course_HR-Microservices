@@ -65,4 +65,20 @@ class RoleTest {
         Role roleDifferent = new Role(1L, "ROLE_NAVIGATOR");
         assertNotEquals(role.hashCode(), roleDifferent.hashCode());
     }
+
+    @Test
+    void testConstructorEmpty() {
+        Role normalRole = new Role();
+        assertNotNull(normalRole);
+        assertNull(normalRole.getId());
+        assertNull(normalRole.getRoleName());
+    }
+
+    @Test
+    void testCustomConstructor() {
+        Role customRole = new Role(3L, "ROLE_COMMANDER");
+        assertNotNull(customRole);
+        assertEquals(3L, customRole.getId());
+        assertEquals("ROLE_COMMANDER", customRole.getRoleName());
+    }
 }
