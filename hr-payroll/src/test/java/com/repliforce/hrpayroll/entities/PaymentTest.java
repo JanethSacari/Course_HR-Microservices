@@ -4,7 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PaymentTest {
 
@@ -12,7 +13,7 @@ class PaymentTest {
 
     @BeforeEach
     void setUp() {
-        payment = new Payment("João", 100.0, 5);
+        payment = new Payment("Sigma", 100.0, 5);
     }
 
     @AfterEach
@@ -21,14 +22,30 @@ class PaymentTest {
     }
 
     @Test
+    void testEmptyConstructor() {
+        Payment emptyPayment = new Payment();
+        assertNull(emptyPayment.getName());
+        assertNull(emptyPayment.getDailyIncome());
+        assertNull(emptyPayment.getDays());
+    }
+
+    @Test
+    void testConstructorWithParameters() {
+        Payment paymentWithParams = new Payment("Vile", 200.0, 10);
+        assertEquals("Vile", paymentWithParams.getName());
+        assertEquals(200.0, paymentWithParams.getDailyIncome());
+        assertEquals(10, paymentWithParams.getDays());
+    }
+
+    @Test
     void getName() {
-        assertEquals("João", payment.getName());
+        assertEquals("Sigma", payment.getName());
     }
 
     @Test
     void setName() {
-        payment.setName("Maria");
-        assertEquals("Maria", payment.getName());
+        payment.setName("Dynamo");
+        assertEquals("Dynamo", payment.getName());
     }
 
     @Test
