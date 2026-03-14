@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,15 +28,15 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        testUser = new User(1L, "Test User", "test@example.com", "password123");
-        Role role = new Role(1L, "ROLE_USER");
+        testUser = new User(1L, "Test User", "iris@repliforce.com", "password123");
+        Role role = new Role(1L, "ROLE_NAVIGATOR");
         testUser.getRoles().add(role);
     }
 
 
     @Test
     void findByEmail() {
-        String email = "test@example.com";
+        String email = "iris@repliforce.com";
         when(userFeignClient.findByEmail(email))
                 .thenReturn(ResponseEntity.ok(testUser));
 
@@ -55,6 +56,24 @@ class UserServiceTest {
                 .thenReturn(ResponseEntity.ok(null));
 
         assertThrows(IllegalArgumentException.class, () -> userService.findByEmail(email));
+        verify(userFeignClient, times(1)).findByEmail(email);
+    }
+
+    @Test
+    void loadUserByUsername() {
+        String email = "iris@repliforce.com";
+        when(userFeignClient.findByEmail(email))
+                .thenReturn(ResponseEntity.ok(testUser));
+        assertDoesNotThrow(() -> userService.loadUserByUsername(email));
+        verify(userFeignClient, times(1)).findByEmail(email);
+    }
+
+    @Test
+    void loadUserByUsernameThrowsException() {
+        String email = null;
+        when(userFeignClient.findByEmail(email))
+                .thenReturn(ResponseEntity.ok(null));
+        assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername(email));
         verify(userFeignClient, times(1)).findByEmail(email);
     }
 }
