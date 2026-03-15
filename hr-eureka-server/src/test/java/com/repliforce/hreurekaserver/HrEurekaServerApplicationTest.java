@@ -1,22 +1,19 @@
 package com.repliforce.hreurekaserver;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class HrEurekaServerApplicationTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Test
-    void main() {
+    void mainMethodStartsApplication() {
+        assertDoesNotThrow(() -> HrEurekaServerApplication.main(new String[]{}),
+                "O método main deve iniciar a aplicação sem lançar exceções");
     }
 }
